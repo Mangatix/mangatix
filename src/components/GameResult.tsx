@@ -1,7 +1,7 @@
 import React from 'react';
 import { Character, Language } from '../types/Character';
-import { Trophy, RotateCcw } from 'lucide-react';
-import { getCharacterImageUrl, formatCharacterName } from '../utils/gameLogic';
+import { Trophy, RotateCcw, Star } from 'lucide-react';
+import { getCharacterImageUrl, formatCharacterName, getRankFromAttempts, getRankFromAttemptsEN } from '../utils/gameLogic';
 import { translations } from '../utils/translations';
 
 interface GameResultProps {
@@ -33,6 +33,8 @@ export const GameResult: React.FC<GameResultProps> = ({ isWon, character, guessC
     return `${t.foundIn} ${guessCount} ${attemptText} !`;
   };
 
+  const rankInfo = language === 'fr' ? getRankFromAttempts(guessCount) : getRankFromAttemptsEN(guessCount);
+
   return (
     <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 z-50 animate-fadeInScale">
       <div className="bg-gray-800 border border-gray-700 rounded-lg shadow-2xl p-8 max-w-md w-full text-center animate-slideInFromTop">
@@ -46,6 +48,33 @@ export const GameResult: React.FC<GameResultProps> = ({ isWon, character, guessC
           <p className="text-gray-300 mb-4 animate-fadeInUp">
             {getResultMessage()}
           </p>
+
+          {/* Rank Display */}
+          <div className="mb-6 animate-fadeInScale" style={{ animationDelay: '0.2s' }}>
+            <div className="relative">
+              {/* Rank Badge */}
+              <div className={`inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-r ${rankInfo.color} shadow-lg mb-3 animate-pulse-custom`}>
+                <span className="text-3xl font-bold text-white drop-shadow-lg">
+                  {rankInfo.rank}
+                </span>
+              </div>
+              
+              {/* Stars for S rank */}
+              {rankInfo.rank === 'S' && (
+                <div className="absolute -top-2 -right-2">
+                  <Star className="w-6 h-6 text-yellow-300 fill-yellow-300 animate-bounce-custom" style={{ animationDelay: '0.5s' }} />
+                </div>
+              )}
+            </div>
+            
+            <div className={`text-lg font-semibold bg-gradient-to-r ${rankInfo.color} bg-clip-text text-transparent mb-2`}>
+              {language === 'fr' ? 'Rang' : 'Rank'} {rankInfo.rank}
+            </div>
+            
+            <p className="text-sm text-gray-400 italic">
+              {rankInfo.description}
+            </p>
+          </div>
         </div>
 
         <div className="mb-6 animate-fadeInScale" style={{ animationDelay: '0.3s' }}>

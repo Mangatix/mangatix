@@ -18,6 +18,86 @@ export const getCharacterImageUrl = (nomFichier: string): string => {
   return `/images/characters/${formattedName}.webp`;
 };
 
+export const getRankFromAttempts = (attempts: number): { rank: string; color: string; description: string } => {
+  if (attempts === 1) {
+    return { 
+      rank: 'S', 
+      color: 'from-yellow-400 to-orange-400', 
+      description: 'Légendaire ! Premier coup !' 
+    };
+  } else if (attempts <= 2) {
+    return { 
+      rank: 'A', 
+      color: 'from-green-400 to-emerald-400', 
+      description: 'Excellent ! Très impressionnant !' 
+    };
+  } else if (attempts <= 4) {
+    return { 
+      rank: 'B', 
+      color: 'from-blue-400 to-cyan-400', 
+      description: 'Très bien ! Bonne performance !' 
+    };
+  } else if (attempts <= 6) {
+    return { 
+      rank: 'C', 
+      color: 'from-purple-400 to-pink-400', 
+      description: 'Bien joué ! Pas mal du tout !' 
+    };
+  } else if (attempts <= 10) {
+    return { 
+      rank: 'D', 
+      color: 'from-orange-400 to-red-400', 
+      description: 'Correct ! Continuez vos efforts !' 
+    };
+  } else {
+    return { 
+      rank: 'E', 
+      color: 'from-gray-400 to-gray-500', 
+      description: 'Persévérance ! La pratique paie !' 
+    };
+  }
+};
+
+export const getRankFromAttemptsEN = (attempts: number): { rank: string; color: string; description: string } => {
+  if (attempts === 1) {
+    return { 
+      rank: 'S', 
+      color: 'from-yellow-400 to-orange-400', 
+      description: 'Legendary! First try!' 
+    };
+  } else if (attempts <= 2) {
+    return { 
+      rank: 'A', 
+      color: 'from-green-400 to-emerald-400', 
+      description: 'Excellent! Very impressive!' 
+    };
+  } else if (attempts <= 4) {
+    return { 
+      rank: 'B', 
+      color: 'from-blue-400 to-cyan-400', 
+      description: 'Very good! Great performance!' 
+    };
+  } else if (attempts <= 6) {
+    return { 
+      rank: 'C', 
+      color: 'from-purple-400 to-pink-400', 
+      description: 'Well done! Not bad at all!' 
+    };
+  } else if (attempts <= 10) {
+    return { 
+      rank: 'D', 
+      color: 'from-orange-400 to-red-400', 
+      description: 'Correct! Keep up the effort!' 
+    };
+  } else {
+    return { 
+      rank: 'E', 
+      color: 'from-gray-400 to-gray-500', 
+      description: 'Perseverance! Practice pays off!' 
+    };
+  }
+};
+
 export const compareGuess = (guess: Character, correct: Character, language: Language) => {
   const t = translations[language];
   
