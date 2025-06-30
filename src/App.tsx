@@ -86,12 +86,33 @@ function App() {
     });
   };
 
+  const handleYouTubeClick = () => {
+    window.open('https://www.youtube.com/@YourChannelName', '_blank');
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
       <div className="container mx-auto px-4 py-8 max-w-4xl">
-        {/* Header with Language Toggle */}
+        {/* Header with YouTube Channel Link and Language Toggle */}
         <div className="flex justify-between items-start mb-8">
-          <div className="text-center flex-1">
+          {/* YouTube Channel Link */}
+          <div className="flex-shrink-0">
+            <button
+              onClick={handleYouTubeClick}
+              className="group relative overflow-hidden rounded-full transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-purple-500/25"
+              aria-label="Visit YouTube Channel"
+            >
+              <img
+                src="/images/PP.webp"
+                alt="YouTube Channel"
+                className="w-16 h-16 rounded-full border-2 border-gray-600 group-hover:border-purple-400 transition-all duration-300"
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-blue-500/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            </button>
+          </div>
+
+          {/* Title Section */}
+          <div className="text-center flex-1 mx-8">
             <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-2">
               {t.title}
             </h1>
@@ -102,7 +123,9 @@ function App() {
               {formatDate()}
             </p>
           </div>
-          <div className="ml-4">
+
+          {/* Language Toggle */}
+          <div className="flex-shrink-0">
             <LanguageToggle currentLanguage={language} onLanguageChange={setLanguage} />
           </div>
         </div>
