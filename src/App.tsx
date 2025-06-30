@@ -59,7 +59,8 @@ function App() {
     const newGuesses = [...gameState.guesses, guessedCharacter];
     const comparison = compareGuess(guessedCharacter, gameState.currentCharacter, language);
     
-    setGuessComparisons(prev => [...prev, { character: guessedCharacter, comparison }]);
+    // Add new guess at the beginning of the array (top of the list)
+    setGuessComparisons(prev => [{ character: guessedCharacter, comparison }, ...prev]);
 
     const newGameState = {
       ...gameState,
@@ -130,7 +131,7 @@ function App() {
         <div className="space-y-4">
           {guessComparisons.map((result, index) => (
             <GuessResult
-              key={index}
+              key={`${result.character.nomFichier}-${guessComparisons.length - index}`}
               comparisons={result.comparison}
               characterName={result.character.nomFichier}
             />
