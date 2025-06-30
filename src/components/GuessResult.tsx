@@ -1,6 +1,7 @@
 import React from 'react';
 import { ClueComparison } from '../types/Character';
 import { formatCharacterName, getCharacterImageUrl } from '../utils/gameLogic';
+import { ImageOptimizer } from './ImageOptimizer';
 
 interface GuessResultProps {
   comparisons: ClueComparison[];
@@ -17,16 +18,13 @@ export const GuessResult: React.FC<GuessResultProps> = ({ comparisons, character
   return (
     <div className="bg-gray-800 border border-gray-700 rounded-lg shadow-xl p-4 mb-4 animate-slideInFromTop">
       <div className="flex items-center gap-4 mb-3">
-        {/* Character Image */}
+        {/* Character Image with Optimization */}
         <div className="flex-shrink-0 animate-fadeInScale">
-          <img
+          <ImageOptimizer
             src={getCharacterImageUrl(characterName)}
             alt={formatCharacterName(characterName)}
             className="w-16 h-16 object-cover rounded-lg border-2 border-gray-600 shadow-md"
-            onError={(e) => {
-              const target = e.target as HTMLImageElement;
-              target.src = '/images/characters/placeholder.webp';
-            }}
+            loading="eager"
           />
         </div>
         

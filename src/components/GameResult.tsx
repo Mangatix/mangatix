@@ -3,6 +3,7 @@ import { Character, Language } from '../types/Character';
 import { Trophy, RotateCcw, Star } from 'lucide-react';
 import { getCharacterImageUrl, formatCharacterName, getRankFromAttempts, getRankFromAttemptsEN } from '../utils/gameLogic';
 import { translations } from '../utils/translations';
+import { ImageOptimizer } from './ImageOptimizer';
 
 interface GameResultProps {
   isWon: boolean;
@@ -78,14 +79,11 @@ export const GameResult: React.FC<GameResultProps> = ({ isWon, character, guessC
         </div>
 
         <div className="mb-6 animate-fadeInScale" style={{ animationDelay: '0.3s' }}>
-          <img
+          <ImageOptimizer
             src={getCharacterImageUrl(character.nomFichier)}
             alt={formatCharacterName(character.nomFichier)}
             className="w-32 h-32 object-cover rounded-lg mx-auto mb-4 shadow-lg border border-gray-600 hover:scale-105 transition-transform duration-300"
-            onError={(e) => {
-              const target = e.target as HTMLImageElement;
-              target.src = '/images/characters/placeholder.webp';
-            }}
+            loading="eager"
           />
           
           <h3 className="text-xl font-bold text-white mb-2 animate-fadeInUp" style={{ animationDelay: '0.4s' }}>

@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Character } from '../types/Character';
 import { Search } from 'lucide-react';
 import { formatCharacterName, getCharacterImageUrl } from '../utils/gameLogic';
+import { ImageOptimizer } from './ImageOptimizer';
 
 interface CharacterSearchProps {
   characters: Character[];
@@ -172,16 +173,13 @@ export const CharacterSearch: React.FC<CharacterSearchProps> = ({
               onMouseEnter={() => setSelectedIndex(index)}
               style={{ animationDelay: `${index * 50}ms` }}
             >
-              {/* Character Image */}
+              {/* Character Image with Optimization */}
               <div className="flex-shrink-0">
-                <img
+                <ImageOptimizer
                   src={getCharacterImageUrl(character.nomFichier)}
                   alt={formatCharacterName(character.nomFichier)}
                   className="w-12 h-12 object-cover rounded-lg border border-gray-500 shadow-sm transition-transform duration-200 hover:scale-105"
-                  onError={(e) => {
-                    const target = e.target as HTMLImageElement;
-                    target.src = '/images/characters/placeholder.webp';
-                  }}
+                  loading="eager"
                 />
               </div>
               
