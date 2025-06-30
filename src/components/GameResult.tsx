@@ -1,7 +1,7 @@
 import React from 'react';
 import { Character, Language } from '../types/Character';
 import { Trophy, X, RotateCcw } from 'lucide-react';
-import { getCharacterImageUrl } from '../utils/gameLogic';
+import { getCharacterImageUrl, formatCharacterName } from '../utils/gameLogic';
 import { translations } from '../utils/translations';
 
 interface GameResultProps {
@@ -14,12 +14,6 @@ interface GameResultProps {
 
 export const GameResult: React.FC<GameResultProps> = ({ isWon, character, guessCount, onRestart, language }) => {
   const t = translations[language];
-
-  const formatCharacterName = (nomFichier: string) => {
-    return nomFichier
-      .replace(/([a-z])([A-Z])/g, '$1 $2')
-      .replace(/^./, str => str.toUpperCase());
-  };
 
   const getTimeUntilNextGame = () => {
     const now = new Date();

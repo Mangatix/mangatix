@@ -9,16 +9,12 @@ export const getRandomCharacter = (characters: Character[]): Character => {
 };
 
 export const getCharacterImageUrl = (nomFichier: string): string => {
-  // Try different possible image formats and naming conventions
-  const possibleNames = [
-    nomFichier,
-    nomFichier.charAt(0).toUpperCase() + nomFichier.slice(1),
-    nomFichier.replace(/([a-z])([A-Z])/g, '$1_$2'),
-    nomFichier.replace(/([a-z])([A-Z])/g, '$1 $2'),
-  ];
+  // Convert underscore format to proper capitalized format for image names
+  const formattedName = nomFichier
+    .split('_')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join('_');
   
-  // For now, return the first format - in a real app you'd check which exists
-  const formattedName = nomFichier.replace(/([a-z])([A-Z])/g, '$1_$2');
   return `/images/characters/${formattedName}.webp`;
 };
 
@@ -112,4 +108,11 @@ export const getClues = (character: Character, cluesRevealed: number, language: 
   ];
 
   return allClues.slice(0, cluesRevealed);
+};
+
+export const formatCharacterName = (nomFichier: string): string => {
+  return nomFichier
+    .split('_')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
 };

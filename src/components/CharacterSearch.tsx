@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Character } from '../types/Character';
 import { Search } from 'lucide-react';
+import { formatCharacterName } from '../utils/gameLogic';
 
 interface CharacterSearchProps {
   characters: Character[];
@@ -22,10 +23,11 @@ export const CharacterSearch: React.FC<CharacterSearchProps> = ({
 
   useEffect(() => {
     if (query.length > 0) {
-      const filtered = characters.filter(character =>
-        character.nomFichier.toLowerCase().includes(query.toLowerCase()) ||
-        character.Univers.toLowerCase().includes(query.toLowerCase())
-      ).slice(0, 10);
+      const filtered = characters.filter(character => {
+        const formattedName = formatCharacterName(character.nomFichier);
+        return formattedName.toLowerCase().includes(query.toLowerCase()) ||
+               character.Univers.toLowerCase().includes(query.toLowerCase());
+      }).slice(0, 10);
       setFilteredCharacters(filtered);
       setIsOpen(true);
     } else {
@@ -39,12 +41,6 @@ export const CharacterSearch: React.FC<CharacterSearchProps> = ({
     setQuery('');
     setIsOpen(false);
     inputRef.current?.blur();
-  };
-
-  const formatCharacterName = (nomFichier: string) => {
-    return nomFichier
-      .replace(/([a-z])([A-Z])/g, '$1 $2')
-      .replace(/^./, str => str.toUpperCase());
   };
 
   return (

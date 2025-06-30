@@ -1,5 +1,6 @@
 import React from 'react';
 import { ClueComparison } from '../types/Character';
+import { formatCharacterName } from '../utils/gameLogic';
 
 interface GuessResultProps {
   comparisons: ClueComparison[];
@@ -7,12 +8,6 @@ interface GuessResultProps {
 }
 
 export const GuessResult: React.FC<GuessResultProps> = ({ comparisons, characterName }) => {
-  const formatCharacterName = (nomFichier: string) => {
-    return nomFichier
-      .replace(/([a-z])([A-Z])/g, '$1 $2')
-      .replace(/^./, str => str.toUpperCase());
-  };
-
   return (
     <div className="bg-gray-800 border border-gray-700 rounded-lg shadow-xl p-4 mb-4">
       <h3 className="font-bold text-lg mb-3 text-white">
