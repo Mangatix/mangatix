@@ -87,7 +87,7 @@ function App() {
   };
 
   const handleYouTubeClick = () => {
-    window.open('https://www.youtube.com/@YourChannelName', '_blank');
+    window.open('https://www.youtube.com/@Crocodro', '_blank');
   };
 
   return (
@@ -100,11 +100,11 @@ function App() {
             <button
               onClick={handleYouTubeClick}
               className="group relative overflow-hidden rounded-full transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-purple-500/25"
-              aria-label="Visit YouTube Channel"
+              aria-label="Visit Crocodro YouTube Channel"
             >
               <img
                 src="/images/PP.webp"
-                alt="YouTube Channel"
+                alt="Crocodro YouTube Channel"
                 className="w-16 h-16 rounded-full border-2 border-gray-600 group-hover:border-purple-400 transition-all duration-300"
               />
               <div className="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-blue-500/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
