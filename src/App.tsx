@@ -15,7 +15,7 @@ function App() {
     guesses: [],
     isGameWon: false,
     isGameLost: false,
-    maxGuesses: 6,
+    maxGuesses: 0, // Unlimited guesses
   });
 
   const [guessComparisons, setGuessComparisons] = useState<any[]>([]);
@@ -45,13 +45,13 @@ function App() {
       guesses: [],
       isGameWon: false,
       isGameLost: false,
-      maxGuesses: 6,
+      maxGuesses: 0, // Unlimited guesses
     });
     setGuessComparisons([]);
   };
 
   const handleGuess = (guessedCharacter: Character) => {
-    if (!gameState.currentCharacter || gameState.isGameWon || gameState.isGameLost) {
+    if (!gameState.currentCharacter || gameState.isGameWon) {
       return;
     }
 
@@ -66,7 +66,7 @@ function App() {
       ...gameState,
       guesses: newGuesses,
       isGameWon: isCorrect,
-      isGameLost: !isCorrect && newGuesses.length >= gameState.maxGuesses,
+      isGameLost: false, // Never lose with unlimited tries
     };
 
     setGameState(newGameState);
@@ -110,18 +110,18 @@ function App() {
         {/* Game Stats */}
         <div className="bg-gray-800 border border-gray-700 rounded-lg shadow-xl p-4 mb-6">
           <div className="text-center">
-            <div className="text-2xl font-bold text-white">{gameState.guesses.length}/{gameState.maxGuesses}</div>
+            <div className="text-2xl font-bold text-white">{gameState.guesses.length}</div>
             <div className="text-sm text-gray-300">{t.attempts}</div>
           </div>
         </div>
 
         {/* Search Input */}
-        {!gameState.isGameWon && !gameState.isGameLost && (
+        {!gameState.isGameWon && (
           <div className="mb-8">
             <CharacterSearch
               characters={charactersData as Character[]}
               onSelect={handleGuess}
-              disabled={gameState.isGameWon || gameState.isGameLost}
+              disabled={gameState.isGameWon}
               placeholder={t.guessPlaceholder}
             />
           </div>
@@ -139,7 +139,7 @@ function App() {
         </div>
 
         {/* Game Result Modal */}
-        {(gameState.isGameWon || gameState.isGameLost) && gameState.currentCharacter && (
+        {gameState.isGameWon && gameState.currentCharacter && (
           <GameResult
             isWon={gameState.isGameWon}
             character={gameState.currentCharacter}

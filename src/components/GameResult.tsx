@@ -1,6 +1,6 @@
 import React from 'react';
 import { Character, Language } from '../types/Character';
-import { Trophy, X, RotateCcw } from 'lucide-react';
+import { Trophy, RotateCcw } from 'lucide-react';
 import { getCharacterImageUrl, formatCharacterName } from '../utils/gameLogic';
 import { translations } from '../utils/translations';
 
@@ -29,25 +29,18 @@ export const GameResult: React.FC<GameResultProps> = ({ isWon, character, guessC
   };
 
   const getResultMessage = () => {
-    if (isWon) {
-      const attemptText = guessCount === 1 ? t.attempt : t.attempts_plural;
-      return `${t.foundIn} ${guessCount} ${attemptText} !`;
-    }
-    return t.exhaustedAttempts;
+    const attemptText = guessCount === 1 ? t.attempt : t.attempts_plural;
+    return `${t.foundIn} ${guessCount} ${attemptText} !`;
   };
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 z-50 animate-fadeInScale">
       <div className="bg-gray-800 border border-gray-700 rounded-lg shadow-2xl p-8 max-w-md w-full text-center animate-slideInFromTop">
         <div className="mb-6">
-          {isWon ? (
-            <Trophy className="w-16 h-16 text-yellow-400 mx-auto mb-4 animate-bounce-custom" />
-          ) : (
-            <X className="w-16 h-16 text-red-400 mx-auto mb-4 animate-pulse-custom" />
-          )}
+          <Trophy className="w-16 h-16 text-yellow-400 mx-auto mb-4 animate-bounce-custom" />
           
           <h2 className="text-2xl font-bold mb-2 text-white animate-fadeInRight">
-            {isWon ? t.congratulations : t.tooBar}
+            {t.congratulations}
           </h2>
           
           <p className="text-gray-300 mb-4 animate-fadeInUp">
