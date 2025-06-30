@@ -99,7 +99,7 @@ function App() {
           <div className="flex-shrink-0">
             <button
               onClick={handleYouTubeClick}
-              className="group relative overflow-hidden rounded-full transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-purple-500/25"
+              className="group relative overflow-hidden rounded-full transition-all duration-300 hover:scale-110 shadow-lg shadow-blue-500/30 hover:shadow-xl hover:shadow-purple-500/50"
               aria-label="Visit Crocodro YouTube Channel"
             >
               <img
@@ -107,7 +107,8 @@ function App() {
                 alt="Crocodro YouTube Channel"
                 className="w-16 h-16 rounded-full border-2 border-gray-600 group-hover:border-purple-400 transition-all duration-300"
               />
-              <div className="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-blue-500/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-purple-500/30 to-blue-500/30 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-pulse"></div>
+              <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full opacity-20 blur-sm group-hover:opacity-40 transition-opacity duration-300"></div>
             </button>
           </div>
 
