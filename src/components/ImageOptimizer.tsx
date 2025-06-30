@@ -24,7 +24,7 @@ export const ImageOptimizer: React.FC<ImageOptimizerProps> = ({
   const [currentSrc, setCurrentSrc] = useState(src);
   const imgRef = useRef<HTMLImageElement>(null);
 
-  // Generate multiple resolution sources
+  // Generate multiple resolution sources for better quality
   const generateSrcSet = (baseSrc: string) => {
     const baseName = baseSrc.replace('.webp', '');
     return [
@@ -46,32 +46,30 @@ export const ImageOptimizer: React.FC<ImageOptimizerProps> = ({
     onError?.(e);
   };
 
-  // Apply image sharpening and enhancement via CSS
+  // Enhanced className with better image rendering
   const enhancedClassName = `
     ${className}
     ${isLoaded ? 'opacity-100' : 'opacity-0'}
     transition-all duration-300 ease-in-out
-    image-rendering: -webkit-optimize-contrast;
-    image-rendering: crisp-edges;
-    filter: contrast(1.1) saturate(1.05) sharpen(0.5px);
-    transform: translateZ(0);
-    backface-visibility: hidden;
+    image-enhanced
+    progressive-image
+    ${isLoaded ? 'loaded' : ''}
   `.trim();
 
   return (
     <div className="relative overflow-hidden">
-      {/* Loading placeholder */}
+      {/* Loading placeholder with shimmer effect */}
       {!isLoaded && (
-        <div className={`${className} bg-gray-700 animate-pulse flex items-center justify-center`}>
+        <div className={`${className} bg-gray-700 image-loading flex items-center justify-center`}>
           <div className="w-8 h-8 border-2 border-gray-500 border-t-blue-500 rounded-full animate-spin"></div>
         </div>
       )}
       
-      {/* Optimized image */}
+      {/* Optimized image with enhanced rendering */}
       <img
         ref={imgRef}
         src={currentSrc}
-        srcSet={generateSrcSet(currentSrc)}
+        srcSet={!hasError ? generateSrcSet(currentSrc) : undefined}
         sizes={sizes}
         alt={alt}
         className={enhancedClassName}
@@ -81,11 +79,17 @@ export const ImageOptimizer: React.FC<ImageOptimizerProps> = ({
         decoding="async"
         style={{
           imageRendering: '-webkit-optimize-contrast',
-          filter: 'contrast(1.1) saturate(1.05)',
-          transform: 'translateZ(0)',
-          backfaceVisibility: 'hidden'
+          filter: 'contrast(1.15) saturate(1.1) brightness(1.02)',
+          transform: 'translateZ(0) scale(1.02)',
+          backfaceVisibility: 'hidden',
+          willChange: 'transform',
+          // Enhanced sharpening for larger images
+          WebkitFilter: 'contrast(1.15) saturate(1.1) brightness(1.02) unsharp-mask(amount=0.5, radius=0.5, threshold=0)',
         }}
       />
+      
+      {/* Subtle overlay for better contrast */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent pointer-events-none opacity-30"></div>
     </div>
   );
 };

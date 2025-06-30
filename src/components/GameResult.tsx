@@ -38,15 +38,15 @@ export const GameResult: React.FC<GameResultProps> = ({ isWon, character, guessC
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 z-50 animate-fadeInScale">
-      <div className="bg-gray-800 border border-gray-700 rounded-lg shadow-2xl p-8 max-w-md w-full text-center animate-slideInFromTop">
+      <div className="bg-gray-800 border border-gray-700 rounded-lg shadow-2xl p-8 max-w-lg w-full text-center animate-slideInFromTop">
         <div className="mb-6">
           <Trophy className="w-16 h-16 text-yellow-400 mx-auto mb-4 animate-bounce-custom" />
           
-          <h2 className="text-2xl font-bold mb-2 text-white animate-fadeInRight">
+          <h2 className="text-2xl font-bold mb-2 text-white animate-fadeInRight leading-tight break-words hyphens-auto" style={{ wordBreak: 'break-word' }}>
             {t.congratulations}
           </h2>
           
-          <p className="text-gray-300 mb-4 animate-fadeInUp">
+          <p className="text-gray-300 mb-4 animate-fadeInUp leading-tight break-words hyphens-auto" style={{ wordBreak: 'break-word' }}>
             {getResultMessage()}
           </p>
 
@@ -68,44 +68,48 @@ export const GameResult: React.FC<GameResultProps> = ({ isWon, character, guessC
               )}
             </div>
             
-            <div className={`text-lg font-semibold bg-gradient-to-r ${rankInfo.color} bg-clip-text text-transparent mb-2`}>
+            <div className={`text-lg font-semibold bg-gradient-to-r ${rankInfo.color} bg-clip-text text-transparent mb-2 leading-tight break-words hyphens-auto`} style={{ wordBreak: 'break-word' }}>
               {language === 'fr' ? 'Rang' : 'Rank'} {rankInfo.rank}
             </div>
             
-            <p className="text-sm text-gray-400 italic">
+            <p className="text-sm text-gray-400 italic leading-tight break-words hyphens-auto" style={{ wordBreak: 'break-word' }}>
               {rankInfo.description}
             </p>
           </div>
         </div>
 
         <div className="mb-6 animate-fadeInScale" style={{ animationDelay: '0.3s' }}>
+          {/* Larger Character Image */}
           <ImageOptimizer
             src={getCharacterImageUrl(character.nomFichier)}
             alt={formatCharacterName(character.nomFichier)}
-            className="w-32 h-32 object-cover rounded-lg mx-auto mb-4 shadow-lg border border-gray-600 hover:scale-105 transition-transform duration-300"
+            className="w-40 h-40 object-cover rounded-lg mx-auto mb-4 shadow-lg border border-gray-600 hover:scale-105 transition-transform duration-300"
             loading="eager"
           />
           
-          <h3 className="text-xl font-bold text-white mb-2 animate-fadeInUp" style={{ animationDelay: '0.4s' }}>
+          <h3 className="text-xl font-bold text-white mb-2 animate-fadeInUp leading-tight break-words hyphens-auto" style={{ animationDelay: '0.4s', wordBreak: 'break-word' }}>
             {formatCharacterName(character.nomFichier)}
           </h3>
           
-          <p className="text-gray-400 animate-fadeInUp" style={{ animationDelay: '0.5s' }}>
+          <p className="text-gray-400 animate-fadeInUp leading-tight break-words hyphens-auto" style={{ animationDelay: '0.5s', wordBreak: 'break-word' }}>
             {character.Univers}
           </p>
         </div>
 
         <div className="space-y-3 animate-fadeInUp" style={{ animationDelay: '0.6s' }}>
-          <p className="text-sm text-gray-500">
+          <p className="text-sm text-gray-500 leading-tight break-words hyphens-auto" style={{ wordBreak: 'break-word' }}>
             {t.nextCharacterIn} {getTimeUntilNextGame()}
           </p>
           
           <button
             onClick={onRestart}
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 flex items-center justify-center shadow-md hover-lift"
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 flex items-center justify-center shadow-md hover-lift leading-tight break-words hyphens-auto"
+            style={{ wordBreak: 'break-word' }}
           >
-            <RotateCcw className="w-5 h-5 mr-2" />
-            {t.replay} {t.sameCharacter}
+            <RotateCcw className="w-5 h-5 mr-2 flex-shrink-0" />
+            <span className="break-words hyphens-auto" style={{ wordBreak: 'break-word' }}>
+              {t.replay} {t.sameCharacter}
+            </span>
           </button>
         </div>
       </div>

@@ -165,7 +165,7 @@ export const CharacterSearch: React.FC<CharacterSearchProps> = ({
             <button
               key={character.nomFichier}
               onClick={() => handleSelect(character)}
-              className={`w-full px-4 py-3 text-left border-b border-gray-600 last:border-b-0 transition-all duration-200 flex items-center gap-3 hover-lift ${
+              className={`w-full px-4 py-3 text-left border-b border-gray-600 last:border-b-0 transition-all duration-200 flex items-center gap-4 hover-lift ${
                 index === selectedIndex
                   ? 'bg-blue-600 text-white'
                   : 'hover:bg-gray-700 focus:bg-gray-700 text-white'
@@ -173,22 +173,22 @@ export const CharacterSearch: React.FC<CharacterSearchProps> = ({
               onMouseEnter={() => setSelectedIndex(index)}
               style={{ animationDelay: `${index * 50}ms` }}
             >
-              {/* Character Image with Optimization */}
+              {/* Character Image with Larger Size */}
               <div className="flex-shrink-0">
                 <ImageOptimizer
                   src={getCharacterImageUrl(character.nomFichier)}
                   alt={formatCharacterName(character.nomFichier)}
-                  className="w-12 h-12 object-cover rounded-lg border border-gray-500 shadow-sm transition-transform duration-200 hover:scale-105"
+                  className="w-20 h-20 object-cover rounded-lg border border-gray-500 shadow-sm transition-transform duration-200 hover:scale-105"
                   loading="eager"
                 />
               </div>
               
-              {/* Character Info */}
-              <div className="flex-1 min-w-0">
-                <div className="font-medium truncate">
+              {/* Character Info with Better Text Handling */}
+              <div className="flex-1 min-w-0 overflow-hidden">
+                <div className="font-medium text-base leading-tight mb-1 break-words hyphens-auto" style={{ wordBreak: 'break-word' }}>
                   {formatCharacterName(character.nomFichier)}
                 </div>
-                <div className="text-sm text-gray-400 truncate">
+                <div className="text-sm text-gray-400 leading-tight break-words hyphens-auto" style={{ wordBreak: 'break-word' }}>
                   {character.Univers}
                 </div>
               </div>
