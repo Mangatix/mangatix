@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Character } from '../types/Character';
 import { Search } from 'lucide-react';
-import { formatCharacterName } from '../utils/gameLogic';
+import { formatCharacterName, getCharacterImageUrl } from '../utils/gameLogic';
 
 interface CharacterSearchProps {
   characters: Character[];
@@ -164,18 +164,34 @@ export const CharacterSearch: React.FC<CharacterSearchProps> = ({
             <button
               key={character.nomFichier}
               onClick={() => handleSelect(character)}
-              className={`w-full px-4 py-3 text-left border-b border-gray-600 last:border-b-0 transition-colors ${
+              className={`w-full px-4 py-3 text-left border-b border-gray-600 last:border-b-0 transition-colors flex items-center gap-3 ${
                 index === selectedIndex
                   ? 'bg-blue-600 text-white'
                   : 'hover:bg-gray-700 focus:bg-gray-700 text-white'
               }`}
               onMouseEnter={() => setSelectedIndex(index)}
             >
-              <div className="font-medium">
-                {formatCharacterName(character.nomFichier)}
+              {/* Character Image */}
+              <div className="flex-shrink-0">
+                <img
+                  src={getCharacterImageUrl(character.nomFichier)}
+                  alt={formatCharacterName(character.nomFichier)}
+                  className="w-12 h-12 object-cover rounded-lg border border-gray-500 shadow-sm"
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.src = '/images/characters/placeholder.webp';
+                  }}
+                />
               </div>
-              <div className="text-sm text-gray-400">
-                {character.Univers}
+              
+              {/* Character Info */}
+              <div className="flex-1 min-w-0">
+                <div className="font-medium truncate">
+                  {formatCharacterName(character.nomFichier)}
+                </div>
+                <div className="text-sm text-gray-400 truncate">
+                  {character.Univers}
+                </div>
               </div>
             </button>
           ))}
