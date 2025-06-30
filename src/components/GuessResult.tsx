@@ -8,6 +8,12 @@ interface GuessResultProps {
 }
 
 export const GuessResult: React.FC<GuessResultProps> = ({ comparisons, characterName }) => {
+  const getComparisonColor = (comparison: ClueComparison) => {
+    if (comparison.isCorrect) return 'bg-green-600';
+    if (comparison.isPartial) return 'bg-yellow-600';
+    return 'bg-red-600';
+  };
+
   return (
     <div className="bg-gray-800 border border-gray-700 rounded-lg shadow-xl p-4 mb-4">
       <h3 className="font-bold text-lg mb-3 text-white">
@@ -20,7 +26,7 @@ export const GuessResult: React.FC<GuessResultProps> = ({ comparisons, character
             <div className="text-xs font-medium text-gray-400 mb-1">
               {comparison.label}
             </div>
-            <div className="bg-gray-700 border border-gray-600 rounded-lg p-2 flex items-center justify-center min-h-[3rem] shadow-md">
+            <div className={`${getComparisonColor(comparison)} border border-gray-600 rounded-lg p-2 flex items-center justify-center min-h-[3rem] shadow-md`}>
               <div className="text-white text-sm font-medium text-center">
                 <div>{comparison.playerValue}</div>
               </div>

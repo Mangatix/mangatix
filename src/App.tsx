@@ -2,11 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Character, GameState, Language } from './types/Character';
 import { CharacterSearch } from './components/CharacterSearch';
 import { GuessResult } from './components/GuessResult';
-import { CluesPanel } from './components/CluesPanel';
 import { GameResult } from './components/GameResult';
-import { GameStats } from './components/GameStats';
 import { LanguageToggle } from './components/LanguageToggle';
-import { getRandomCharacter, compareGuess, getClues } from './utils/gameLogic';
+import { getRandomCharacter, compareGuess } from './utils/gameLogic';
 import { translations } from './utils/translations';
 import charactersData from './data/characters.json';
 
@@ -17,11 +15,9 @@ function App() {
     guesses: [],
     isGameWon: false,
     isGameLost: false,
-    cluesRevealed: 0,
     maxGuesses: 6,
   });
 
-  const [clues, setClues] = useState<string[]>([]);
   const [guessComparisons, setGuessComparisons] = useState<any[]>([]);
 
   const t = translations[language];
@@ -30,13 +26,6 @@ function App() {
   useEffect(() => {
     initializeGame();
   }, []);
-
-  // Update clues when cluesRevealed changes or language changes
-  useEffect(() => {
-    if (gameState.currentCharacter) {
-      setClues(getClues(gameState.currentCharacter, gameState.cluesRevealed, language));
-    }
-  }, [gameState.currentCharacter, gameState.cluesRevealed, language]);
 
   // Update guess comparisons when language changes
   useEffect(() => {
@@ -56,10 +45,8 @@ function App() {
       guesses: [],
       isGameWon: false,
       isGameLost: false,
-      cluesRevealed: 0,
       maxGuesses: 6,
     });
-    setClues([]);
     setGuessComparisons([]);
   };
 
@@ -82,15 +69,6 @@ function App() {
     };
 
     setGameState(newGameState);
-  };
-
-  const handleRevealClue = () => {
-    if (gameState.cluesRevealed < 9 && !gameState.isGameWon && !gameState.isGameLost) {
-      setGameState(prev => ({
-        ...prev,
-        cluesRevealed: prev.cluesRevealed + 1,
-      }));
-    }
   };
 
   const handleRestart = () => {
@@ -129,20 +107,12 @@ function App() {
         </div>
 
         {/* Game Stats */}
-        <GameStats
-          guessCount={gameState.guesses.length}
-          maxGuesses={gameState.maxGuesses}
-          cluesRevealed={gameState.cluesRevealed}
-          language={language}
-        />
-
-        {/* Clues Panel */}
-        <CluesPanel
-          clues={clues}
-          onRevealClue={handleRevealClue}
-          canRevealMore={gameState.cluesRevealed < 9 && !gameState.isGameWon && !gameState.isGameLost}
-          language={language}
-        />
+        <div className="bg-gray-800 border border-gray-700 rounded-lg shadow-xl p-4 mb-6">
+          <div className="text-center">
+            <div className="text-2xl font-bold text-white">{gameState.guesses.length}/{gameState.maxGuesses}</div>
+            <div className="text-sm text-gray-300">{t.attempts}</div>
+          </div>
+        </div>
 
         {/* Search Input */}
         {!gameState.isGameWon && !gameState.isGameLost && (
