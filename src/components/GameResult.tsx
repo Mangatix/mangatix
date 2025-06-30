@@ -31,20 +31,20 @@ export const GameResult: React.FC<GameResultProps> = ({ isWon, character, guessC
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-      <div className="bg-white rounded-lg shadow-xl p-8 max-w-md w-full text-center">
+    <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 z-50">
+      <div className="bg-gray-800 border border-gray-700 rounded-lg shadow-2xl p-8 max-w-md w-full text-center">
         <div className="mb-6">
           {isWon ? (
-            <Trophy className="w-16 h-16 text-yellow-500 mx-auto mb-4" />
+            <Trophy className="w-16 h-16 text-yellow-400 mx-auto mb-4" />
           ) : (
-            <X className="w-16 h-16 text-red-500 mx-auto mb-4" />
+            <X className="w-16 h-16 text-red-400 mx-auto mb-4" />
           )}
           
-          <h2 className="text-2xl font-bold mb-2">
+          <h2 className="text-2xl font-bold mb-2 text-white">
             {isWon ? 'Félicitations !' : 'Dommage !'}
           </h2>
           
-          <p className="text-gray-600 mb-4">
+          <p className="text-gray-300 mb-4">
             {isWon 
               ? `Vous avez trouvé en ${guessCount} tentative${guessCount > 1 ? 's' : ''} !`
               : 'Vous avez épuisé toutes vos tentatives.'
@@ -56,18 +56,18 @@ export const GameResult: React.FC<GameResultProps> = ({ isWon, character, guessC
           <img
             src={getCharacterImageUrl(character.nomFichier)}
             alt={formatCharacterName(character.nomFichier)}
-            className="w-32 h-32 object-cover rounded-lg mx-auto mb-4 shadow-md"
+            className="w-32 h-32 object-cover rounded-lg mx-auto mb-4 shadow-lg border border-gray-600"
             onError={(e) => {
               const target = e.target as HTMLImageElement;
               target.src = '/images/characters/placeholder.webp';
             }}
           />
           
-          <h3 className="text-xl font-bold text-gray-800 mb-2">
+          <h3 className="text-xl font-bold text-white mb-2">
             {formatCharacterName(character.nomFichier)}
           </h3>
           
-          <p className="text-gray-600">
+          <p className="text-gray-400">
             {character.Univers}
           </p>
         </div>
@@ -79,7 +79,7 @@ export const GameResult: React.FC<GameResultProps> = ({ isWon, character, guessC
           
           <button
             onClick={onRestart}
-            className="w-full bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg font-medium transition-colors flex items-center justify-center"
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition-colors flex items-center justify-center shadow-md"
           >
             <RotateCcw className="w-5 h-5 mr-2" />
             Rejouer (même personnage)

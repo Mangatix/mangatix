@@ -20,11 +20,11 @@ export const GuessResult: React.FC<GuessResultProps> = ({ comparisons, character
 
   const getStatusColor = (comparison: ClueComparison) => {
     if (comparison.isCorrect) {
-      return 'bg-green-500';
+      return 'bg-green-600';
     } else if (comparison.isPartial) {
-      return 'bg-yellow-500';
+      return 'bg-yellow-600';
     } else {
-      return 'bg-red-500';
+      return 'bg-red-600';
     }
   };
 
@@ -35,19 +35,19 @@ export const GuessResult: React.FC<GuessResultProps> = ({ comparisons, character
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-4 mb-4">
-      <h3 className="font-bold text-lg mb-3 text-gray-800">
+    <div className="bg-gray-800 border border-gray-700 rounded-lg shadow-xl p-4 mb-4">
+      <h3 className="font-bold text-lg mb-3 text-white">
         {formatCharacterName(characterName)}
       </h3>
       
       <div className="grid grid-cols-3 md:grid-cols-5 lg:grid-cols-9 gap-2">
         {comparisons.map((comparison) => (
           <div key={comparison.field} className="text-center">
-            <div className="text-xs font-medium text-gray-600 mb-1">
+            <div className="text-xs font-medium text-gray-400 mb-1">
               {comparison.label}
             </div>
             <div
-              className={`${getStatusColor(comparison)} rounded-lg p-2 flex items-center justify-center min-h-[3rem]`}
+              className={`${getStatusColor(comparison)} rounded-lg p-2 flex items-center justify-center min-h-[3rem] shadow-md`}
             >
               <div className="text-white text-sm font-medium text-center">
                 <div>{comparison.playerValue}</div>

@@ -92,17 +92,17 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
       <div className="container mx-auto px-4 py-8 max-w-4xl">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-2">
+          <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-2">
             MANGATIX
           </h1>
-          <p className="text-lg text-gray-600 mb-1">
+          <p className="text-lg text-gray-300 mb-1">
             Jeu de devinettes manga quotidien
           </p>
-          <p className="text-sm text-gray-500 capitalize">
+          <p className="text-sm text-gray-400 capitalize">
             {formatDate()}
           </p>
         </div>
@@ -155,9 +155,9 @@ function App() {
         )}
 
         {/* Instructions */}
-        <div className="mt-12 bg-white rounded-lg shadow-md p-6">
-          <h3 className="text-lg font-bold text-gray-800 mb-4">Comment jouer ?</h3>
-          <div className="space-y-2 text-gray-600">
+        <div className="mt-12 bg-gray-800 border border-gray-700 rounded-lg shadow-xl p-6">
+          <h3 className="text-lg font-bold text-white mb-4">Comment jouer ?</h3>
+          <div className="space-y-2 text-gray-300">
             <p>• Devinez le personnage manga mystère du jour</p>
             <p>• Vous avez 6 tentatives maximum</p>
             <p>• Révélez des indices pour vous aider</p>
