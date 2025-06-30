@@ -153,30 +153,31 @@ export const CharacterSearch: React.FC<CharacterSearchProps> = ({
           onBlur={() => setTimeout(() => setIsOpen(false), 200)}
           disabled={disabled}
           placeholder={placeholder}
-          className="w-full pl-10 pr-4 py-3 bg-gray-800 border-2 border-gray-600 rounded-lg focus:border-blue-500 focus:outline-none disabled:bg-gray-700 disabled:cursor-not-allowed text-lg text-white placeholder-gray-400"
+          className="w-full pl-10 pr-4 py-3 bg-gray-800 border-2 border-gray-600 rounded-lg focus:border-blue-500 focus:outline-none disabled:bg-gray-700 disabled:cursor-not-allowed text-lg text-white placeholder-gray-400 transition-all duration-300 hover-lift"
           autoComplete="off"
         />
       </div>
 
       {isOpen && filteredCharacters.length > 0 && (
-        <div className="absolute z-10 w-full mt-1 bg-gray-800 border border-gray-600 rounded-lg shadow-xl max-h-60 overflow-y-auto">
+        <div className="absolute z-10 w-full mt-1 bg-gray-800 border border-gray-600 rounded-lg shadow-xl max-h-60 overflow-y-auto animate-slideInFromTop">
           {filteredCharacters.map((character, index) => (
             <button
               key={character.nomFichier}
               onClick={() => handleSelect(character)}
-              className={`w-full px-4 py-3 text-left border-b border-gray-600 last:border-b-0 transition-colors flex items-center gap-3 ${
+              className={`w-full px-4 py-3 text-left border-b border-gray-600 last:border-b-0 transition-all duration-200 flex items-center gap-3 hover-lift ${
                 index === selectedIndex
                   ? 'bg-blue-600 text-white'
                   : 'hover:bg-gray-700 focus:bg-gray-700 text-white'
               }`}
               onMouseEnter={() => setSelectedIndex(index)}
+              style={{ animationDelay: `${index * 50}ms` }}
             >
               {/* Character Image */}
               <div className="flex-shrink-0">
                 <img
                   src={getCharacterImageUrl(character.nomFichier)}
                   alt={formatCharacterName(character.nomFichier)}
-                  className="w-12 h-12 object-cover rounded-lg border border-gray-500 shadow-sm"
+                  className="w-12 h-12 object-cover rounded-lg border border-gray-500 shadow-sm transition-transform duration-200 hover:scale-105"
                   onError={(e) => {
                     const target = e.target as HTMLImageElement;
                     target.src = '/images/characters/placeholder.webp';
