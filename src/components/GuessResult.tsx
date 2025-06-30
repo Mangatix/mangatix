@@ -1,6 +1,6 @@
 import React from 'react';
 import { ClueComparison } from '../types/Character';
-import { formatCharacterName } from '../utils/gameLogic';
+import { formatCharacterName, getCharacterImageUrl } from '../utils/gameLogic';
 
 interface GuessResultProps {
   comparisons: ClueComparison[];
@@ -16,10 +16,27 @@ export const GuessResult: React.FC<GuessResultProps> = ({ comparisons, character
 
   return (
     <div className="bg-gray-800 border border-gray-700 rounded-lg shadow-xl p-4 mb-4">
-      <h3 className="font-bold text-lg mb-3 text-white">
-        {formatCharacterName(characterName)}
-      </h3>
+      <div className="flex items-center gap-4 mb-3">
+        {/* Character Image */}
+        <div className="flex-shrink-0">
+          <img
+            src={getCharacterImageUrl(characterName)}
+            alt={formatCharacterName(characterName)}
+            className="w-16 h-16 object-cover rounded-lg border-2 border-gray-600 shadow-md"
+            onError={(e) => {
+              const target = e.target as HTMLImageElement;
+              target.src = '/images/characters/placeholder.webp';
+            }}
+          />
+        </div>
+        
+        {/* Character Name */}
+        <h3 className="font-bold text-lg text-white">
+          {formatCharacterName(characterName)}
+        </h3>
+      </div>
       
+      {/* Comparison Grid */}
       <div className="grid grid-cols-3 md:grid-cols-5 lg:grid-cols-9 gap-2">
         {comparisons.map((comparison) => (
           <div key={comparison.field} className="text-center">
